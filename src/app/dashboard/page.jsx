@@ -13,7 +13,7 @@ const Dashboard = () => {
         if (!user?.email) {
             router.push('/login')
         }
-    }, [user])
+    }, [])
 
     return (
         <div>Dashboard</div>
