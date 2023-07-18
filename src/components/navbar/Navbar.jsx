@@ -13,7 +13,9 @@ const Navbar = () => {
   const router = useRouter()
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/auth/logout')
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST'
+      })
       const data = await response.json()
       if (response.status === 200) {
         toast.success(data?.message)
