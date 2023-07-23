@@ -1,4 +1,4 @@
-import { Dashboard } from "@mui/icons-material";
+import { AddCard, Dashboard, DynamicFeed, Feed, ListAlt, Message, PostAdd } from "@mui/icons-material";
 
 export const sidebarData = [
     {
@@ -11,36 +11,36 @@ export const sidebarData = [
         id: 9,
         title: "Add new blog",
         url: "/dashboard/add-blog",
-        icon: Dashboard
+        icon: PostAdd
     },
     {
         id: 5,
         title: "Add new project",
         url: "/dashboard/add-project",
-        icon: Dashboard
+        icon: AddCard
     },
     {
         id: 2,
         title: "Your Blogs",
         url: "/dashboard/blogs",
-        icon: Dashboard
+        icon: DynamicFeed
     },
     {
         id: 3,
         title: "Your Projects",
         url: "/dashboard/projects",
-        icon: Dashboard
+        icon: ListAlt
     },
     {
         id: 7,
         title: "Your Info",
         url: "/dashboard/info",
-        icon: Dashboard
+        icon: Feed
     },
     {
         id: 6,
         title: "Messages",
         url: "/dashboard/messages",
-        icon: Dashboard
+        icon: Message
     },
 ]
