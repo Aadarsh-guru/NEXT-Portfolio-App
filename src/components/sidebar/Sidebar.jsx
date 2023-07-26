@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import IconButton from '@mui/material/IconButton';
@@ -10,10 +10,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { sidebarData } from '@/constants/sidebarConfig';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const drawerWidth = 240;
 
@@ -74,8 +73,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Sidebar() {
 
-    const theme = useTheme();
     const [open, setOpen] = React.useState(true);
+    const path = usePathname()
 
     return (
         <Drawer variant="permanent" open={open}>
@@ -90,9 +89,9 @@ export default function Sidebar() {
                 </IconButton>
             </DrawerHeader>
             <List>
-                {sidebarData?.map((item, index) => (
+                {sidebarData?.map((item) => (
                     <Link key={item.id} href={item?.url} >
-                        <ListItem disablePadding sx={{ display: 'block' }}>
+                        <ListItem disablePadding sx={path === item?.url ? { display: 'block', margin: '10px 0', color: '#53c28b', transition: 'all 0.5s ease' } : { display: 'block', margin: '10px 0' }}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -107,7 +106,7 @@ export default function Sidebar() {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    <item.icon style={{ color: 'white' }} />
+                                    <item.icon style={path === item?.url ? { color: 'white', color: '#53c28b', transition: 'all 0.5s ease' } : { color: 'white' }} />
                                 </ListItemIcon>
                                 <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>

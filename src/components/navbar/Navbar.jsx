@@ -5,12 +5,13 @@ import styles from "./navbar.module.css";
 import { links } from '@/constants/navbarConfig'
 import { useData } from "@/context/DataProvider";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
 
   const { user, setUser } = useData()
   const router = useRouter()
+  const path = usePathname()
   const handleLogout = async () => {
     try {
       const response = await fetch('/api/auth/logout', {
@@ -36,7 +37,7 @@ const Navbar = () => {
       </Link>
       <div className={styles.links}>
         {links.map((link) => (
-          <Link key={link.id} href={link.url} className={styles.link}>
+          <Link style={path === link?.url ? { color: '#53c28b', transition: 'all 0.5s ease' } : null} key={link.id} href={link.url} className={styles.link}>
             {link.title}
           </Link>
         ))}
