@@ -12,10 +12,10 @@ const Footer = () => {
         </a>
       </div>
       <div className={styles.social}>
-        <a href="http://" target="_blank" rel="noopener noreferrer"><Twitter className={styles.icon} /></a>
-        <a href="http://" target="_blank" rel="noopener noreferrer"><Language className={styles.icon} /></a>
-        <a href="http://" target="_blank" rel="noopener noreferrer"><Instagram className={styles.icon} /></a>
-        <a href="http://" target="_blank" rel="noopener noreferrer"><YouTube className={styles.icon} /></a>
+        <a href="https://twitter.com/Aadarsh_guru" target="_blank" rel="noopener noreferrer"><Twitter className={styles.icon} /></a>
+        <a href="https://aadarshguru.com" target="_blank" rel="noopener noreferrer"><Language className={styles.icon} /></a>
+        <a href="https://instagram.com/aadarsh_guru" target="_blank" rel="noopener noreferrer"><Instagram className={styles.icon} /></a>
+        <a href="https://youtube.com/@Aadarshguru" target="_blank" rel="noopener noreferrer"><YouTube className={styles.icon} /></a>
       </div>
     </div>
   );
