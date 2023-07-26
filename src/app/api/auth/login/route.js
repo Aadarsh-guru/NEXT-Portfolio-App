@@ -20,7 +20,9 @@ export const POST = async (NextRequest) => {
         const data = { name: user?.name, email: user?.email, createdAt: user?.createdAt, id: user?._id }
         const response = NextResponse.json({ message: 'Logged in successfully.', success: true, user: data }, { status: 200 })
         response.cookies.set("token", token, { httpOnly: true })
-        return response;
+        if (response.cookies?.get('token')) {
+            return response;
+        }
     } catch (error) {
         return NextResponse.json({ message: error.message, success: false }, { status: 500 })
     }
