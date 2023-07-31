@@ -4,6 +4,7 @@ import Navbar from '@/components/navbar/Navbar'
 import Footer from '@/components/footer/Footer'
 import { Toaster } from 'react-hot-toast'
 import DataProvider from '@/context/DataProvider'
+import Theme from '@/context/ThemeProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -16,18 +17,20 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <DataProvider>
-          <div className="container">
-            <header>
-              <Navbar />
-            </header>
-            <Toaster />
-            <main>
-              {children}
-            </main>
-            <footer>
-              <Footer />
-            </footer>
-          </div>
+          <Theme>
+            <div className="container">
+              <header>
+                <Navbar />
+              </header>
+              <Toaster />
+              <main>
+                {children}
+              </main>
+              <footer>
+                <Footer />
+              </footer>
+            </div>
+          </Theme>
         </DataProvider>
       </body>
     </html>
