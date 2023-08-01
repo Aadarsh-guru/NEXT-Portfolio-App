@@ -1,4 +1,4 @@
-import { AddIcCall, BusinessCenter, ConnectWithoutContact, Feed, Gavel, HowToVote, Info, LocalMovies, Policy, Psychology, Satellite, Science, Sports } from "@mui/icons-material";
+import { BusinessCenter, ConnectWithoutContact, Feed, HowToVote, LocalMovies, Psychology, Satellite, Science, Sports } from "@mui/icons-material";
 
 export const categories = [
     {
@@ -54,28 +54,5 @@ export const categories = [
         slug: 'psychology',
         to: '/category/psychology',
         icon: Psychology
-    },
-]
-
-export const pages = [
-    {
-        name: 'Contact US',
-        to: '/contact',
-        icon: AddIcCall
-    },
-    {
-        name: 'About US',
-        to: '/about',
-        icon: Info
-    },
-    {
-        name: 'Privacy Policy',
-        to: '/privacy-policy',
-        icon: Policy
-    },
-    {
-        name: 'T&C',
-        to: '/terms-and-conditions',
-        icon: Gavel
     },
 ]

@@ -1,4 +1,4 @@
-import { AddCard, Dashboard, DynamicFeed, Feed, ListAlt, Message, PostAdd } from "@mui/icons-material";
+import { AddCard, Dashboard, Drafts, DynamicFeed, Feed, ListAlt, Message, PostAdd, RestoreFromTrash } from "@mui/icons-material";
 
 export const sidebarData = [
     {
@@ -8,39 +8,51 @@ export const sidebarData = [
         icon: Dashboard
     },
     {
-        id: 9,
+        id: 2,
         title: "Add new blog",
         url: "/dashboard/add-blog",
         icon: PostAdd
     },
     {
-        id: 5,
+        id: 3,
         title: "Add new project",
         url: "/dashboard/add-project",
         icon: AddCard
     },
     {
-        id: 2,
+        id: 4,
         title: "Your Blogs",
         url: "/dashboard/blogs",
         icon: DynamicFeed
     },
     {
-        id: 3,
+        id: 5,
         title: "Your Projects",
         url: "/dashboard/projects",
         icon: ListAlt
     },
     {
-        id: 7,
+        id: 6,
         title: "Your Info",
         url: "/dashboard/info",
         icon: Feed
     },
     {
-        id: 6,
+        id: 7,
         title: "Messages",
         url: "/dashboard/messages",
         icon: Message
+    },
+    {
+        id: 8,
+        title: "Your Drafts",
+        url: "/dashboard/draft",
+        icon: Drafts
+    },
+    {
+        id: 9,
+        title: "Trash Bin",
+        url: "/dashboard/bin",
+        icon: RestoreFromTrash
     },
 ]
