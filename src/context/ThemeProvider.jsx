@@ -6,7 +6,7 @@ const darkTheme = createTheme({
     palette: {
         mode: 'dark',
         background: '#000',
-        divider: 'rgba(255, 255, 255, 0.12)'
+        divider: '#ffffff1f'
     },
 });
 
