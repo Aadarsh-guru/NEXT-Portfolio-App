@@ -1,23 +1,23 @@
-import { BusinessCenter, ConnectWithoutContact, Feed, HowToVote, LocalMovies, Psychology, Satellite, Science, Sports } from "@mui/icons-material";
+import { Apps, ConnectWithoutContact, Feed, LocalMovies, Psychology, Satellite, Science, Storage, Web } from "@mui/icons-material";
 
 export const categories = [
     {
-        name: 'All News',
-        slug: 'all-news',
+        name: 'All Blogs',
+        slug: 'all-blogs',
         to: '/',
         icon: Feed
     },
     {
-        name: 'Bussines',
-        slug: 'bussiness',
-        to: '/category/bussiness',
-        icon: BusinessCenter
+        name: 'Web Development',
+        slug: 'web-development',
+        to: '/category/web-development',
+        icon: Web
     },
     {
-        name: 'Sports',
-        slug: 'sports',
-        to: '/category/sports',
-        icon: Sports
+        name: 'Database',
+        slug: 'database',
+        to: '/category/database',
+        icon: Storage
     },
     {
         name: 'Technology',
@@ -32,10 +32,10 @@ export const categories = [
         icon: Science
     },
     {
-        name: 'Politics',
-        slug: 'politics',
-        to: '/category/politics',
-        icon: HowToVote
+        name: 'App Development',
+        slug: 'app-development',
+        to: '/category/app-development',
+        icon: Apps
     },
     {
         name: 'Entertainment',
@@ -50,9 +50,9 @@ export const categories = [
         icon: ConnectWithoutContact
     },
     {
-        name: 'Psychology',
-        slug: 'psychology',
-        to: '/category/psychology',
+        name: 'Artificial Intelligence',
+        slug: 'artificial-intelligence',
+        to: '/category/artificial-intelligence',
         icon: Psychology
     },
 ]
