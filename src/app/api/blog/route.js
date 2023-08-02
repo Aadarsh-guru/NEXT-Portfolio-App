@@ -14,7 +14,6 @@ export const POST = async (NextRequest) => {
         const blog = await Blog({ imageUrl, title, description, category, meta, keywords, type, author, userId }).save()
         return NextResponse.json({ message: 'Blog Created successfully.', success: true, blog }, { status: 201 })
     } catch (error) {
-        console.log(error);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 })
     }
 }
