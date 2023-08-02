@@ -63,9 +63,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
             marginLeft: '74px',
             marginTop: 100,
             height: 'calc(100vh - 150px)',
-            background: '#121212',
-            // background: '#000',
-            color: '#fff',
             borderTop: '1px solid gray',
             borderRight: '1px solid gray'
         }
@@ -83,9 +80,9 @@ export default function Sidebar() {
                 <IconButton onClick={() => setOpen(!open)}>
                     {
                         open ?
-                            <ChevronLeftIcon style={{ color: 'white' }} />
+                            <ChevronLeftIcon />
                             :
-                            <MenuIcon style={{ marginRight: 4, color: 'white' }} />
+                            <MenuIcon style={{ marginRight: 4 }} />
                     }
                 </IconButton>
             </DrawerHeader>
@@ -107,7 +104,7 @@ export default function Sidebar() {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    <item.icon style={path === item?.url ? { color: 'white', color: '#53c28b', transition: 'all 0.5s ease' } : { color: 'white' }} />
+                                    <item.icon style={path === item?.url ? { color: '#53c28b', transition: 'all 0.5s ease' } : null} />
                                 </ListItemIcon>
                                 <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
