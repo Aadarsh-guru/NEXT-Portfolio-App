@@ -6,6 +6,7 @@ import { links } from '@/constants/navbarConfig'
 import { useData } from "@/context/DataProvider";
 import { toast } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
+import DarkModeToggle from "../darkmodeToggleButton/DarkModeToggle";
 
 const Navbar = () => {
 
@@ -36,6 +37,7 @@ const Navbar = () => {
         Aadarsh Guru
       </Link>
       <div className={styles.links}>
+        <DarkModeToggle />
         {links.map((link) => (
           <Link style={path === link?.url ? { color: '#53c28b', transition: 'all 0.5s ease' } : null} key={link.id} href={link.url} className={styles.link}>
             {link.title}
