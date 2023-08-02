@@ -63,8 +63,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
             marginLeft: '74px',
             marginTop: 100,
             height: 'calc(100vh - 150px)',
-            // background: '#121212',
-            background: '#000',
+            background: '#121212',
+            // background: '#000',
             color: '#fff',
             borderTop: '1px solid gray',
             borderRight: '1px solid gray'
