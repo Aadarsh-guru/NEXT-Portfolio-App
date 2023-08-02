@@ -4,6 +4,7 @@ import { Upload } from '@mui/icons-material'
 import { useState, memo } from 'react'
 import toast from 'react-hot-toast'
 import { useData } from '@/context/DataProvider'
+import { projectCategories } from '@/constants/categoriesConfig'
 import './page.css'
 import { useRouter } from 'next/navigation'
 import uploadToS3 from '@/helpers/uploadToS3'
@@ -125,6 +126,7 @@ function AddProject() {
     const [meta, setMeta] = useState('')
     const [keywords, setKeywords] = useState('')
     const [type, setType] = useState('publish')
+    const [url, setUrl] = useState('')
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
@@ -137,19 +139,19 @@ function AddProject() {
                 return toast.error('Image files only accepted.')
             }
             setLoading(true)
-            const { imageUrl, success } = await uploadToS3(image, 'blog-images')
+            const { imageUrl, success } = await uploadToS3(image, 'project-images')
             if (!success) {
                 return toast.error('something went wrong.')
             }
-            const response = await fetch('/api/blog', {
+            const response = await fetch('/api/project', {
                 method: 'POST',
-                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, author: user?.name })
+                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, url, author: user?.name })
             })
             response && setLoading(false)
             const data = await response.json()
             if (response.status === 201) {
                 toast.success(data?.message)
-                router.push('/dashboard/blogs')
+                router.push('/dashboard/projects')
             } else {
                 toast.success(data?.message)
             }
@@ -162,7 +164,7 @@ function AddProject() {
 
     return (
         <Container>
-            <Heading>Create Blog</Heading>
+            <Heading>Create Project</Heading>
             <Form onSubmit={(e) => handleSubmit(e)} >
                 <label style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} htmlFor="file">
                     <SelectImage>
@@ -179,8 +181,16 @@ function AddProject() {
                     }
                 </ImageBox>
                 <TextField onChange={(e) => setImage(e.target.files[0])} sx={{ display: 'none' }} id='file' type='file' />
-                <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Blog Title' />
-                <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Blog Description' multiline minRows={10} />
+                <TextField value={category} error={category && category?.length < 3 && true} required onChange={(e) => setCategory(e.target.value)} label={'Select Category'} select >
+                    {
+                        projectCategories?.filter(cate => cate.name !== 'All Projects').map(category => (
+                            <MenuItem value={category.slug} key={category.slug} >{category.name}</MenuItem>
+                        ))
+                    }
+                </TextField>
+                <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Project Title' />
+                <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Project Description' multiline minRows={10} />
+                <TextField placeholder='This must be type url.' type='url' error={url && url?.length < 3 && true} onChange={(e) => setUrl(e.target.value)} label='Enter Project URL' />
                 <SEOInformaton>
                     <TextField placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
                     <TextField placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
