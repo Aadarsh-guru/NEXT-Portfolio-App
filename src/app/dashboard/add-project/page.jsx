@@ -3,10 +3,10 @@ import { Box, Button, MenuItem, TextField, Typography, styled } from '@mui/mater
 import { Upload } from '@mui/icons-material'
 import { useState, memo } from 'react'
 import toast from 'react-hot-toast'
-import imageCompression from 'browser-image-compression';
 import { useData } from '@/context/DataProvider'
-import { categories } from '@/constants/categoriesConfig'
 import './page.css'
+import { useRouter } from 'next/navigation'
+import uploadToS3 from '@/helpers/uploadToS3'
 
 const Container = styled(Box)(({ theme }) => ({
     width: '100%',
@@ -114,9 +114,10 @@ const ImageBox = styled(Box)(({ theme }) => ({
     }
 }))
 
-function AddProject({ setCategoryTab, setTab }) {
+function AddProject() {
 
-    const { auth } = useData()
+    const router = useRouter()
+    const { user } = useData()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')
@@ -135,25 +136,22 @@ function AddProject({ setCategoryTab, setTab }) {
             if (!image?.type?.includes('image')) {
                 return toast.error('Image files only accepted.')
             }
-            const compressedFile = await imageCompression(image, { maxSizeMB: 1 });
-            const data = new FormData();
-            data.append('image', compressedFile)
-            data.append('title', title)
-            data.append('description', description)
-            data.append('category', category)
-            data.append('meta', meta)
-            data.append('keywords', keywords)
-            data.append('type', type)
-            data.append('author', `${auth?.user?.firstName + " " + auth?.user?.lastName}`)
             setLoading(true)
-            const response = await axios.post(`/api/v1/news/create`, data)
+            const { imageUrl, success } = await uploadToS3(image, 'blog-images')
+            if (!success) {
+                return toast.error('something went wrong.')
+            }
+            const response = await fetch('/api/blog', {
+                method: 'POST',
+                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, author: user?.name })
+            })
             response && setLoading(false)
-            if (response?.status === 201) {
-                toast.success(response?.data?.message)
-                type === 'bin' ? setTab('bin') : type === 'draft' ? setTab('draft') : setTab('');
-                type === 'publish' && setCategoryTab(category)
+            const data = await response.json()
+            if (response.status === 201) {
+                toast.success(data?.message)
+                router.push('/dashboard/blogs')
             } else {
-                toast.success(response?.data?.message)
+                toast.success(data?.message)
             }
         } catch (error) {
             setLoading(false)
@@ -162,10 +160,9 @@ function AddProject({ setCategoryTab, setTab }) {
         }
     }
 
-
     return (
         <Container>
-            <Heading>Create Project</Heading>
+            <Heading>Create Blog</Heading>
             <Form onSubmit={(e) => handleSubmit(e)} >
                 <label style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} htmlFor="file">
                     <SelectImage>
@@ -182,15 +179,8 @@ function AddProject({ setCategoryTab, setTab }) {
                     }
                 </ImageBox>
                 <TextField onChange={(e) => setImage(e.target.files[0])} sx={{ display: 'none' }} id='file' type='file' />
-                <TextField value={category} error={category && category?.length < 3 && true} required onChange={(e) => setCategory(e.target.value)} label={'Select Category'} select >
-                    {
-                        categories?.filter(cate => cate.name !== 'All News').map(category => (
-                            <MenuItem value={category.slug} key={category.slug} >{category.name}</MenuItem>
-                        ))
-                    }
-                </TextField>
-                <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter News Title' />
-                <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter News Description' multiline minRows={10} />
+                <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Blog Title' />
+                <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Blog Description' multiline minRows={10} />
                 <SEOInformaton>
                     <TextField placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
                     <TextField placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
