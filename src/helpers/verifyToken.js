@@ -13,7 +13,7 @@ const verifyToken = async (request) => {
             return { message: 'Anuthorised!', success: false }
         }
     } catch (error) {
-        return { error: error?.message, success: false }
+        return { message: error?.message, success: false }
     }
 }
 
