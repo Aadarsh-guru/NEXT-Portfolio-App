@@ -10,6 +10,11 @@ export const links = [
         url: "/portfolio",
     },
     {
+        id: 3,
+        title: "Projects",
+        url: "/projects",
+    },
+    {
         id: 4,
         title: "Blogs",
         url: "/blogs",
