@@ -63,7 +63,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
             marginTop: 100,
             height: 'calc(100vh - 150px)',
             borderTop: '1px solid gray',
-            borderRight: '1px solid gray'
+            borderRight: '1px solid gray',
+            overflowY: 'auto',
+            scrollBehavior: 'smooth'
         }
     }),
 );

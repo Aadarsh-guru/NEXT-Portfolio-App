@@ -95,4 +95,5 @@ export const projectCategories = [
         url: '/projects/react-js',
         icon: Feed
     },
+
 ]
