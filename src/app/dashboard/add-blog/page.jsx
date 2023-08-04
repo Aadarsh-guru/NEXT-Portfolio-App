@@ -182,8 +182,8 @@ function AddBlog() {
                 <TextField onChange={(e) => setImage(e.target.files[0])} sx={{ display: 'none' }} id='file' type='file' />
                 <TextField value={category} error={category && category?.length < 3 && true} required onChange={(e) => setCategory(e.target.value)} label={'Select Category'} select >
                     {
-                        categories?.filter(cate => cate.name !== 'All Blogs').map(category => (
-                            <MenuItem value={category.slug} key={category.slug} >{category.name}</MenuItem>
+                        categories?.filter(cate => cate.title !== 'All Blogs').map(category => (
+                            <MenuItem value={category.slug} key={category.id} >{category.title}</MenuItem>
                         ))
                     }
                 </TextField>

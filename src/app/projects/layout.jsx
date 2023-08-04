@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '@/components/sidebar/Sidebar'
 import './page.css'
+import { projectCategories } from '@/constants/categoriesConfig';
 
 export const metadata = {
     title: "Blog App - Projects",
@@ -10,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <div className='layout'>
-            <Sidebar />
+            <Sidebar sidebarData={projectCategories} />
             <div className="content">
                 {children}
             </div>

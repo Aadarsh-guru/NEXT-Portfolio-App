@@ -1,72 +1,98 @@
-import { Apps, ConnectWithoutContact, Feed, LocalMovies, Psychology, Satellite, Science, Storage, Web } from "@mui/icons-material";
+import { Feed } from "@mui/icons-material";
 
 export const categories = [
     {
-        name: 'All Blogs',
+        id: 1,
+        title: 'All Blogs',
         slug: 'all-blogs',
-        to: '/',
+        url: '/blogs',
+        icon: Feed
     },
     {
-        name: 'Web Development',
+        id: 2,
+        title: 'Web Development',
         slug: 'web-development',
-        to: '/category/web-development',
+        url: '/blogs/web-development',
+        icon: Feed
     },
     {
-        name: 'Database',
+        id: 3,
+        title: 'Database',
         slug: 'database',
-        to: '/category/database',
+        url: '/blogs/database',
+        icon: Feed
     },
     {
-        name: 'Technology',
+        id: 4,
+        title: 'Technology',
         slug: 'technology',
-        to: '/category/technology',
+        url: '/blogs/technology',
+        icon: Feed
     },
     {
-        name: 'Science',
+        id: 5,
+        title: 'Science',
         slug: 'science',
-        to: '/category/science',
+        url: '/blogs/science',
+        icon: Feed
     },
     {
-        name: 'App Development',
+        id: 6,
+        title: 'App Development',
         slug: 'app-development',
-        to: '/category/app-development',
+        url: '/blogs/app-development',
+        icon: Feed
     },
     {
-        name: 'Entertainment',
+        id: 7,
+        title: 'Entertainment',
         slug: 'entertainment',
-        to: '/category/entertainment',
+        url: '/blogs/entertainment',
+        icon: Feed
     },
     {
-        name: 'Social Media',
+        id: 8,
+        title: 'Social Media',
         slug: 'social-media',
-        to: '/category/social-media',
+        url: '/blogs/social-media',
+        icon: Feed
     },
     {
-        name: 'Artificial Intelligence',
+        id: 9,
+        title: 'Artificial Intelligence',
         slug: 'artificial-intelligence',
-        to: '/category/artificial-intelligence',
+        url: '/blogs/artificial-intelligence',
+        icon: Feed
     },
 ]
 
 export const projectCategories = [
     {
-        name: 'All Projects',
+        id: 1,
+        title: 'All Projects',
         slug: 'all-projects',
-        to: '/',
+        url: '/projects',
+        icon: Feed
     },
     {
-        name: 'MERN STACK',
+        id: 2,
+        title: 'MERN STACK',
         slug: 'mern-stack',
-        to: '/category/mern-stack',
+        url: '/projects/mern-stack',
+        icon: Feed
     },
     {
-        name: 'NEXT JS',
+        id: 3,
+        title: 'NEXT JS',
         slug: 'next-js',
-        to: '/category/next-js',
+        url: '/projects/next-js',
+        icon: Feed
     },
     {
-        name: 'REACT JS',
+        id: 4,
+        title: 'REACT JS',
         slug: 'react-js',
-        to: '/category/react-js',
+        url: '/projects/react-js',
+        icon: Feed
     },
 ]

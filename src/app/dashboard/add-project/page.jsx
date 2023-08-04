@@ -183,8 +183,8 @@ function AddProject() {
                 <TextField onChange={(e) => setImage(e.target.files[0])} sx={{ display: 'none' }} id='file' type='file' />
                 <TextField value={category} error={category && category?.length < 3 && true} required onChange={(e) => setCategory(e.target.value)} label={'Select Category'} select >
                     {
-                        projectCategories?.filter(cate => cate.name !== 'All Projects').map(category => (
-                            <MenuItem value={category.slug} key={category.slug} >{category.name}</MenuItem>
+                        projectCategories?.filter(cate => cate.title !== 'All Projects').map(category => (
+                            <MenuItem value={category.slug} key={category.id} >{category.title}</MenuItem>
                         ))
                     }
                 </TextField>
