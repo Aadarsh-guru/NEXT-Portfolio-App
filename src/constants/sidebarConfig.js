@@ -43,16 +43,16 @@ export const sidebarData = [
         url: "/dashboard/messages",
         icon: Message
     },
-    {
-        id: 8,
-        title: "Your Drafts",
-        url: "/dashboard/draft",
-        icon: Drafts
-    },
-    {
-        id: 9,
-        title: "Trash Bin",
-        url: "/dashboard/bin",
-        icon: RestoreFromTrash
-    },
+    // {
+    //     id: 8,
+    //     title: "Your Drafts",
+    //     url: "/dashboard/draft",
+    //     icon: Drafts
+    // },
+    // {
+    //     id: 9,
+    //     title: "Trash Bin",
+    //     url: "/dashboard/bin",
+    //     icon: RestoreFromTrash
+    // },
 ]
