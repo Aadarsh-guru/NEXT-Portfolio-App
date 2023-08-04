@@ -1,4 +1,6 @@
 import React from 'react'
+import Sidebar from '@/components/sidebar/Sidebar'
+import './page.css'
 
 export const metadata = {
     title: "Blog App - Projects",
@@ -7,8 +9,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <>
-            {children}
-        </>
+        <div className='layout'>
+            <Sidebar />
+            <div className="content">
+                {children}
+            </div>
+        </div>
     )
 }

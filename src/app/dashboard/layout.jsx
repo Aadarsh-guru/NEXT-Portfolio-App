@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar from '@/components/sidebar/Sidebar'
+import { sidebarData } from '@/constants/sidebarConfig';
 import './page.css'
 
 export const metadata = {
@@ -10,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <div className='layout'>
-            <Sidebar />
+            <Sidebar sidebarData={sidebarData} />
             <div className="content">
                 {children}
             </div>

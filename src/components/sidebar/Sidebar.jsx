@@ -10,7 +10,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { sidebarData } from '@/constants/sidebarConfig';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -69,7 +68,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Sidebar() {
+export default function Sidebar({ sidebarData }) {
 
     const [open, setOpen] = React.useState(true);
     const path = usePathname()

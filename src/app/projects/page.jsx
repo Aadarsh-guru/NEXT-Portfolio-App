@@ -1,10 +1,10 @@
 import React from 'react'
 import './page.css'
 
-const Portfolio = () => {
+const Projects = () => {
     return (
         <div>Projects</div>
     )
 }
 
-export default Portfolio
+export default Projects
