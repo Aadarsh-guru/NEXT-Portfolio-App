@@ -127,6 +127,7 @@ function AddProject() {
     const [keywords, setKeywords] = useState('')
     const [type, setType] = useState('publish')
     const [url, setUrl] = useState('')
+    const [repoUrl, setRepoUrl] = useState('')
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
@@ -145,7 +146,7 @@ function AddProject() {
             }
             const response = await fetch('/api/project', {
                 method: 'POST',
-                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, url, author: user?.name })
+                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, url, repoUrl, author: user?.name })
             })
             response && setLoading(false)
             const data = await response.json()
@@ -191,6 +192,7 @@ function AddProject() {
                 <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Project Title' />
                 <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Project Description' multiline minRows={10} />
                 <TextField placeholder='This must be type url.' type='url' error={url && url?.length < 3 && true} onChange={(e) => setUrl(e.target.value)} label='Enter Project URL' />
+                <TextField placeholder='This must be type url.' type='url' error={repoUrl && repoUrl?.length < 3 && true} onChange={(e) => setRepoUrl(e.target.value)} label='Enter Project Repository URL' />
                 <SEOInformaton>
                     <TextField placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
                     <TextField placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />

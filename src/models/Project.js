@@ -23,6 +23,9 @@ const projectSchema = new mongoose.Schema({
     url: {
         type: String,
     },
+    repoUrl: {
+        type: String,
+    },
     keywords: {
         type: String,
     },
