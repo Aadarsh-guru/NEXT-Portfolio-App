@@ -15,3 +15,13 @@ export const POST = async (NextRequest) => {
         return NextResponse.json({ message: error.message, success: false }, { status: 500 })
     }
 }
+
+export const GET = async (NextRequest) => {
+    await connection();
+    try {
+        const data = await Contact.find({}).sort({ createdAt: 'descending' })
+        return NextResponse.json({ message: 'Messages fetched successfully.', success: true, messages: data }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 })
+    }
+}
