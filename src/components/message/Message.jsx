@@ -85,7 +85,7 @@ const Article = ({ message }) => {
                 <Item>
                     <Title><Text>{message?.email}</Text><DeleteButton onClick={() => setOpen(!open)} /></Title>
                     <Autor>
-                        <b>written</b> by {message?.name} / {new Date(message?.createdAt).toDateString()}
+                        <b>Sent</b> by {message?.name} / {new Date(message?.createdAt).toDateString()}
                     </Autor>
                     <Description>{message?.message}</Description>
                 </Item>
