@@ -1,37 +1,27 @@
 'use client'
-import { Card, CardContent, Grid, Typography, styled } from '@mui/material'
-
-const Image = styled('img')(({ theme }) => ({
-    height: '268px',
-    width: '88%',
-    objectFit: 'cover',
-    borderRadius: 5,
-    cursor: 'pointer',
-    [theme.breakpoints.down('sm')]: {
-        width: '100%'
-    }
-}))
+import { Clear } from '@mui/icons-material'
+import { Box, Card, CardContent, Typography, styled } from '@mui/material'
+import { useState } from 'react'
+import AlertDialog from '../confirmBox/ConfirmDialog'
+import { toast } from 'react-hot-toast'
 
 const Component = styled(Card)(({ theme }) => ({
     boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
-    marginBottom: 20
-}))
+    margin: '10px 0px',
+    padding: '0 40px'
 
-const Container = styled(CardContent)(({ theme }) => ({
-    padding: '8px',
-    paddingBottom: '4px !important'
 }))
 
 const Text = styled(Typography)(({ theme }) => ({
     fontWeight: 300,
     fontSize: '22px',
-    color: '#44444d',
+    color: '#f2f2f2',
     lineHeight: '27px',
     cursor: 'pointer'
 }))
 
 
-const RightContainer = styled(Grid)(({ theme }) => ({
+const Item = styled(Box)(({ theme }) => ({
     margin: "5px 0 0 -25px",
     [theme.breakpoints.between('sm', 'lg')]: {
         padding: '0 5px'
@@ -43,49 +33,72 @@ const RightContainer = styled(Grid)(({ theme }) => ({
 
 const Autor = styled(Typography)(({ theme }) => ({
     color: '#808290',
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: '22px'
 }))
 
 const Description = styled(Typography)(({ thrme }) => ({
     lineHeight: '22px',
-    color: '#44444d',
+    color: '#bbb',
     marginTop: '5px',
     fontWeight: 300
 }))
 
-const ReadMore = styled(Typography)(({ theme }) => ({
-    fontSize: 12,
-    marginTop: 10,
-    fontWeight: 'bold',
+const Title = styled(Box)({
+    display: 'flex',
+    justifyContent: 'space-between'
+})
+
+const DeleteButton = styled(Clear)({
+    color: '#f2f2f2',
     cursor: 'pointer',
     ':hover': {
-        color: 'grey'
+        color: 'red'
     },
+    ':active': {
+        color: '#44444d'
+    }
+})
 
-}))
+const Article = ({ message }) => {
 
-const Article = ({ news }) => {
+    const [open, setOpen] = useState(false)
+
+    const handleDelete = async () => {
+        try {
+            const repponse = await fetch(`/api/contact/${message?._id}`, {
+                method: 'DELETE'
+            })
+            const data = await repponse.json()
+            if (data?.success) {
+                toast.success(data?.message)
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('something went wrong.')
+        }
+    }
 
     return (
-        <Component className='AnimatedCard'>
-            <Container >
-                <Grid container>
-                    <Grid lg={5} sm={5} xs={12} item>
-                        <Image loading='lazy' src={`/api/v1/news/image/${news?.image}`} alt='the related to article pic' />
-                    </Grid>
-                    <RightContainer lg={7} md={7} sm={7} xs={12} item>
-                        <Text  >{news?.title?.slice(0, 100) + '...'}</Text>
-                        <Autor>
-                            <b>written</b> by {news?.author} / {new Date(news?.createdAt).toDateString()}
-                        </Autor>
-                        <Description>{news?.description?.slice(0, 350) + '...'}</Description>
-                        <ReadMore  >Read more..</ReadMore>
-                    </RightContainer>
-                </Grid>
-            </Container>
+        <Component>
+            <CardContent>
+                <Item>
+                    <Title><Text>{message?.email}</Text><DeleteButton onClick={() => setOpen(!open)} /></Title>
+                    <Autor>
+                        <b>written</b> by {message?.name} / {new Date(message?.createdAt).toDateString()}
+                    </Autor>
+                    <Description>{message?.message}</Description>
+                </Item>
+            </CardContent>
+            <AlertDialog
+                open={open}
+                setOpen={setOpen}
+                title={'Are You Sure ?'}
+                handleDelete={handleDelete}
+                content={"Note - You want to delete this messahe. if you delete this you'll not be able restore this message again."} />
         </Component>
     )
 }
+
 
 export default Article
