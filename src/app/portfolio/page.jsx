@@ -1,26 +1,40 @@
-import Hero from "public/hero.png";
-import styles from "./page.module.css";
-import Link from 'next/link';
+'use client'
+import ImageURL from "public/my-image.png";
 import Image from 'next/image';
+import { Box, styled } from "@mui/material";
+
+const Container = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    height: 'calc(100vh - 150px)',
+    alignItems: 'center',
+    gap: 10
+}))
+
+const Section = styled(Box)(({ theme }) => ({
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+}))
+
+const MyImage = styled(Image)(({ theme }) => ({
+    height: '500px',
+    width: '500px',
+    margin: '0 auto',
+    borderRadius: '50%'
+}))
 
 const Portfolio = () => {
     return (
-        <div className={styles.container}>
-            <div className={styles.item}>
-                <h1 className={styles.title}>
-                    Cheers to seamless web solutions that make your business hop!
-                </h1>
-                <p className={styles.desc}>
-                    Unleashing the power of web technology for your success.
-                </p>
-                <Link href={'/portfolio'}>
-                    <button className={styles.btn}>See Our Portfolio</button>
-                </Link>
-            </div>
-            <div className={styles.item}>
-                <Image src={Hero} alt="" className={styles.img} />
-            </div>
-        </div>
+        <Container>
+            <Section>
+
+            </Section>
+            <Section>
+                <MyImage src={ImageURL} alt="portfolio-image" />
+            </Section>
+        </Container>
     )
 }
 
