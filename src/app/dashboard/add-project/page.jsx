@@ -191,8 +191,8 @@ function AddProject() {
                 </TextField>
                 <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Project Title' />
                 <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Project Description' multiline minRows={10} />
-                <TextField placeholder='This must be type url.' type='url' error={url && url?.length < 3 && true} onChange={(e) => setUrl(e.target.value)} label='Enter Project URL' />
-                <TextField placeholder='This must be type url.' type='url' error={repoUrl && repoUrl?.length < 3 && true} onChange={(e) => setRepoUrl(e.target.value)} label='Enter Project Repository URL' />
+                <TextField placeholder='This must be type url.' type='url' onChange={(e) => setRepoUrl(e.target.value)} label='Enter Project Repository URL' required />
+                <TextField placeholder='This must be type url.' type='url' onChange={(e) => setUrl(e.target.value)} label='Enter Project URL' />
                 <SEOInformaton>
                     <TextField placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
                     <TextField placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
