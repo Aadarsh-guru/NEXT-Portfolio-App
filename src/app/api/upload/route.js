@@ -16,7 +16,7 @@ export const POST = async (NextRequest) => {
         const putCommand = new PutObjectCommand({ Bucket: process.env.BUCKET_NAME, Key: key })
         const putPresignedUrl = await getSignedUrl(s3Client, putCommand, { expiresIn: 600 });
         const getCommand = new GetObjectCommand({ Bucket: process.env.BUCKET_NAME, Key: key });
-        const getPresignedUrl = await getSignedUrl(s3Client, getCommand);
+        const getPresignedUrl = await getSignedUrl(s3Client, getCommand, { expiresIn: 604800 });
         return NextResponse.json({ uploadUrl: putPresignedUrl, getUrl: getPresignedUrl, success: true }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: error.message, success: false }, { status: 500 })
