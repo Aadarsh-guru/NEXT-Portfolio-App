@@ -180,18 +180,18 @@ function AddBlog() {
                     }
                 </ImageBox>
                 <TextField onChange={(e) => setImage(e.target.files[0])} sx={{ display: 'none' }} id='file' type='file' />
-                <TextField value={category} error={category && category?.length < 3 && true} required onChange={(e) => setCategory(e.target.value)} label={'Select Category'} select >
+                <TextField disabled={loading && true} value={category} error={category && category?.length < 3 && true} required onChange={(e) => setCategory(e.target.value)} label={'Select Category'} select >
                     {
                         categories?.filter(cate => cate.title !== 'All Blogs').map(category => (
                             <MenuItem value={category.slug} key={category.id} >{category.title}</MenuItem>
                         ))
                     }
                 </TextField>
-                <TextField placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Blog Title' />
-                <TextField placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Blog Description' multiline minRows={10} />
+                <TextField disabled={loading && true} placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Blog Title' />
+                <TextField disabled={loading && true} placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Blog Description' multiline minRows={10} />
                 <SEOInformaton>
-                    <TextField placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
-                    <TextField placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
+                    <TextField disabled={loading && true} placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
+                    <TextField disabled={loading && true} placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
                 </SEOInformaton>
                 <ActionBox>
                     <Button disabled={loading && true} type='submit' onClick={() => setType('bin')} sx={{ color: 'red', borderColor: 'red' }} variant='outlined' >{(loading && type === 'bin') ? 'Moving to bin.. ' : 'Move To Bin'}</Button>
