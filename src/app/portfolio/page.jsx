@@ -1,9 +1,11 @@
 'use client'
-import ImageURL from "public/my-image.png";
 import Image from 'next/image';
 import { Box, Button, Typography, styled } from "@mui/material";
 import { Email, GitHub, Instagram, LinkedIn, Phone, Twitter, YouTube } from "@mui/icons-material";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import Loader from '@/components/loader/Loader';
 
 const Container = styled(Box)({
     display: 'flex',
@@ -103,57 +105,103 @@ const ActionBox = styled(Box)({
     gap: 50,
 })
 
+const CenterContainer = styled(Box)({
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+})
+
 const Portfolio = () => {
+
+    const [infoData, setInfoData] = useState({})
+    const [fetching, setFetching] = useState(false)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setFetching(true)
+                const response = await fetch('/api/info')
+                const data = await response.json()
+                if (data?.success) {
+                    setInfoData(data?.info)
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error('something went wrong.')
+            } finally {
+                setFetching(false)
+            }
+        }
+        fetchData()
+    }, [])
+
+
     return (
         <Container>
-            <Section>
-                <Heading>Hey! I'm Aaadarsh Guru</Heading>
-                <SubHeading>
-                    A man with extraordinary desire to learn new things who often becomes a writer whenever alone. and also a MERN stack Developer.
-                </SubHeading>
-                <Description>
-                    I am a hustler who always ready to learn new thing, in order to sharpen my saw everyday i prefer reding books and I also love to share with people all the knowledge I have gained till now, it helps me to keep my vision present in my mind.
-                    In order to become a contributor I write blogs based on the things I'm learning, I'm a enthusiast programer and a MERN-stack developer, learning and creating tech is one of the thing which really excites me, along with tech I'm learning interpersonal skills and also keep interest in psychology and intellectual things.
-                    I have strong believe that the only thing which makes human being shine is right education so to add value in their lives I make efforts to make people aware about tech and encourage people to get educated.
-                    Whenever I get free time I usually spend my time with nature other than this I love to talk to my own self, and write tweets too.
-                </Description>
-                <ConnectWithMe>
-                    <Typography>Connect With Me -</Typography>
-                </ConnectWithMe>
-                <ContactBox>
-                    <MyEmail>
-                        <Email />
-                        <Typography>aadarshgurug@gmail.com</Typography>
-                    </MyEmail>
-                    <MyPhone>
-                        <Phone />
-                        <Typography>+91 8871760855</Typography>
-                    </MyPhone>
-                </ContactBox>
-                <IconsBox>
-                    <a href='#' target='_blank' ><LinkedIn /></a>
-                    <a href='#' target='_blank' ><Twitter /></a>
-                    <a href='#' target='_blank' ><Instagram /></a>
-                    <a href='#' target='_blank' > <GitHub /></a>
-                    <a href='#' target='_blank' ><YouTube /></a>
-                </IconsBox>
-                <ActionBox>
-                    <Link href='/projects' ><Button style={{
-                        background: '#53c28b',
-                    }} variant='contained' >
-                        See My Projects
-                    </Button></Link>
-                    <Button
-                        style={{
-                            color: '#53c28b',
-                        }} >
-                        See My Resume
-                    </Button>
-                </ActionBox>
-            </Section>
-            <Section>
-                <MyImage src={ImageURL} alt="portfolio-image" />
-            </Section>
+            {
+                fetching ?
+                    (
+                        <CenterContainer>
+                            <Loader />
+                        </CenterContainer>
+                    )
+                    :
+                    (
+                        <>
+                            <Section>
+                                <Heading>{infoData?.heading}</Heading>
+                                <SubHeading>
+                                    {infoData?.subHeading}
+                                </SubHeading>
+                                <Description>
+                                    {infoData?.description}
+                                </Description>
+                                <ConnectWithMe>
+                                    <Typography>Connect With Me -</Typography>
+                                </ConnectWithMe>
+                                <ContactBox>
+                                    <MyEmail>
+                                        <Email />
+                                        <Typography>{infoData?.email}</Typography>
+                                    </MyEmail>
+                                    <MyPhone>
+                                        <Phone />
+                                        <Typography>{infoData?.phone}</Typography>
+                                    </MyPhone>
+                                </ContactBox>
+                                <IconsBox>
+                                    <a href='#' target='_blank' ><LinkedIn /></a>
+                                    <a href='#' target='_blank' ><Twitter /></a>
+                                    <a href='#' target='_blank' ><Instagram /></a>
+                                    <a href='#' target='_blank' > <GitHub /></a>
+                                    <a href='#' target='_blank' ><YouTube /></a>
+                                </IconsBox>
+                                <ActionBox>
+                                    <Link href='/projects' ><Button style={{
+                                        background: '#53c28b',
+                                    }} variant='contained' >
+                                        See My Projects
+                                    </Button></Link>
+                                    <a href={infoData?.resumeUrl ? infoData?.resumeUrl : '/'} >
+                                        <Button
+                                            style={{
+                                                color: '#53c28b',
+                                            }} >
+                                            See My Resume
+                                        </Button>
+                                    </a>
+                                </ActionBox>
+                            </Section>
+                            <Section>
+                                {
+                                    infoData?.imageUrl && <MyImage width={500} height={500} src={infoData?.imageUrl} alt="portfolio-image" />
+                                }
+                            </Section>
+                        </>
+                    )
+            }
         </Container>
     )
 }

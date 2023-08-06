@@ -7,18 +7,34 @@ const uploadToS3 = async (file, ref) => {
             method: 'POST',
             body: JSON.stringify({ key: key })
         })
-        const compressedFile = await imageCompression(file, { maxSizeMB: 1 });
-        if (uploadResponse?.status === 200) {
-            const uploadData = await uploadResponse.json()
-            const uploaded = await fetch(uploadData?.uploadUrl, {
-                method: 'PUT',
-                body: compressedFile,
-                headers: {
-                    'Content-Type': file?.type
+        if (file?.type?.includes('image')) {
+            const compressedFile = await imageCompression(file, { maxSizeMB: 1 });
+            if (uploadResponse?.status === 200) {
+                const uploadData = await uploadResponse.json()
+                const uploaded = await fetch(uploadData?.uploadUrl, {
+                    method: 'PUT',
+                    body: compressedFile,
+                    headers: {
+                        'Content-Type': file?.type
+                    }
+                })
+                if (uploaded?.status === 200) {
+                    return { imageUrl: uploadData?.getUrl, success: true, imageKey: key }
                 }
-            })
-            if (uploaded?.status === 200) {
-                return { imageUrl: uploadData?.getUrl, success: true, imageKey: key }
+            }
+        } else {
+            if (uploadResponse?.status === 200) {
+                const uploadData = await uploadResponse.json()
+                const uploaded = await fetch(uploadData?.uploadUrl, {
+                    method: 'PUT',
+                    body: file,
+                    headers: {
+                        'Content-Type': file?.type
+                    }
+                })
+                if (uploaded?.status === 200) {
+                    return { imageUrl: uploadData?.getUrl, success: true, imageKey: key }
+                }
             }
         }
     } catch (error) {
