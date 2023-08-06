@@ -184,7 +184,7 @@ const Portfolio = () => {
                                     }} variant='contained' >
                                         See My Projects
                                     </Button></Link>
-                                    <a href={infoData?.resumeUrl ? infoData?.resumeUrl : '/'} >
+                                    <a href={infoData?.resumeUrl ? infoData?.resumeUrl : '/'} target='_blank' >
                                         <Button
                                             style={{
                                                 color: '#53c28b',
