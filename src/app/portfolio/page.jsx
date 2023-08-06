@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Box, Button, Typography, styled } from "@mui/material";
 import { Email, GitHub, Instagram, LinkedIn, Phone, Twitter, YouTube } from "@mui/icons-material";
 import Link from "next/link";
-import './page.css'
 
 const Container = styled(Box)({
     display: 'flex',
@@ -153,7 +152,7 @@ const Portfolio = () => {
                 </ActionBox>
             </Section>
             <Section>
-                <MyImage className="image" src={ImageURL} alt="portfolio-image" />
+                <MyImage src={ImageURL} alt="portfolio-image" />
             </Section>
         </Container>
     )
