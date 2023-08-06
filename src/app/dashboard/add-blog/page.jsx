@@ -138,13 +138,13 @@ function AddBlog() {
                 return toast.error('Image files only accepted.')
             }
             setLoading(true)
-            const { imageUrl, success } = await uploadToS3(image, 'blog-images')
+            const { imageUrl, success, imageKey } = await uploadToS3(image, 'blog-images')
             if (!success) {
                 return toast.error('something went wrong.')
             }
             const response = await fetch('/api/blog', {
                 method: 'POST',
-                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, author: user?.name })
+                body: JSON.stringify({ imageKey, imageUrl, title, description, category, meta, keywords, type, author: user?.name })
             })
             response && setLoading(false)
             const data = await response.json()

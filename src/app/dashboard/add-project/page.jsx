@@ -140,13 +140,13 @@ function AddProject() {
                 return toast.error('Image files only accepted.')
             }
             setLoading(true)
-            const { imageUrl, success } = await uploadToS3(image, 'project-images')
+            const { imageUrl, success, imageKey } = await uploadToS3(image, 'project-images')
             if (!success) {
                 return toast.error('something went wrong.')
             }
             const response = await fetch('/api/project', {
                 method: 'POST',
-                body: JSON.stringify({ imageUrl, title, description, category, meta, keywords, type, url, repoUrl, author: user?.name })
+                body: JSON.stringify({ imageKey, imageUrl, title, description, category, meta, keywords, type, url, repoUrl, author: user?.name })
             })
             response && setLoading(false)
             const data = await response.json()
