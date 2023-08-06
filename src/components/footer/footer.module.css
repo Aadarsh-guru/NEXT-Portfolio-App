@@ -6,17 +6,17 @@
   justify-content: space-between;
 }
 
-.social {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .icon {
   opacity: 0.6;
   cursor: pointer;
   margin: 0 10px;
   font-size: 18px;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .icon:hover {
