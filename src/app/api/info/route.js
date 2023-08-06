@@ -2,6 +2,15 @@ import connection from '@/config/dbConfig'
 import verifyToken from '@/helpers/verifyToken';
 import Info from '@/models/Info';
 import { NextRequest, NextResponse } from 'next/server'
+import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3'
+
+const s3Client = new S3Client({
+    region: process.env.REGION,
+    credentials: {
+        accessKeyId: process.env.ACCESS_KEY,
+        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    },
+});
 
 export const POST = async (NextRequest) => {
     await connection();
@@ -13,6 +22,14 @@ export const POST = async (NextRequest) => {
         const { imageUrl, imageKey, heading, subHeading, description, email, phone, resumeUrl, resumeKey } = await NextRequest.json()
         const data = await Info.findOne({})
         if (data?._id) {
+            await s3Client.send(new DeleteObjectCommand({
+                Bucket: process.env.BUCKET_NAME,
+                Key: data?.imageKey
+            }))
+            await s3Client.send(new DeleteObjectCommand({
+                Bucket: process.env.BUCKET_NAME,
+                Key: data?.resumeKey
+            }))
             const info = await Info.findByIdAndUpdate(data?._id, { imageUrl, imageKey, heading, subHeading, description, email, phone, resumeUrl, resumeKey, userId })
             return NextResponse.json({ message: 'Info Updated successfully.', success: true, info }, { status: 201 })
         } else {
