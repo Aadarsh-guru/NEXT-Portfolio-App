@@ -172,11 +172,11 @@ const Portfolio = () => {
                                     </MyPhone>
                                 </ContactBox>
                                 <IconsBox>
-                                    <a href='#' target='_blank' ><LinkedIn /></a>
-                                    <a href='#' target='_blank' ><Twitter /></a>
-                                    <a href='#' target='_blank' ><Instagram /></a>
-                                    <a href='#' target='_blank' > <GitHub /></a>
-                                    <a href='#' target='_blank' ><YouTube /></a>
+                                    <a href='https://www.linkedin.com/in/aadarsh-guru/' target='_blank' ><LinkedIn /></a>
+                                    <a href='https://twitter.com/Aadarsh_guru' target='_blank' ><Twitter /></a>
+                                    <a href='https://instagram.com/aadarsh_guru' target='_blank' ><Instagram /></a>
+                                    <a href='https://github.com/aadarsh-guru' target='_blank' > <GitHub /></a>
+                                    <a href='https://youtube.com/@Aadarshguru' target='_blank' ><YouTube /></a>
                                 </IconsBox>
                                 <ActionBox>
                                     <Link href='/projects' ><Button style={{
