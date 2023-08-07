@@ -65,21 +65,6 @@ const SelectImage = styled(Box)(({ theme }) => ({
     }
 }))
 
-const SEOInformaton = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    gap: 20,
-    '& > div': {
-        width: '90%',
-    },
-    [theme.breakpoints.down('md')]: {
-        flexDirection: 'column',
-        '& > div': {
-            width: '100%',
-        },
-        gap: 10
-    }
-}))
-
 const ActionBox = styled(Box)(({ theme }) => ({
     display: 'flex',
     gap: 25,
@@ -114,8 +99,6 @@ function AddProject() {
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')
     const [category, setCategory] = useState('')
-    const [meta, setMeta] = useState('')
-    const [keywords, setKeywords] = useState('')
     const [url, setUrl] = useState('')
     const [repoUrl, setRepoUrl] = useState('')
     const [loading, setLoading] = useState(false)
@@ -136,7 +119,7 @@ function AddProject() {
             }
             const response = await fetch('/api/project', {
                 method: 'POST',
-                body: JSON.stringify({ image: key, title, description, category, meta, keywords, url, repoUrl, author: user?.name })
+                body: JSON.stringify({ image: key, title, description, category, url, repoUrl, author: user?.name })
             })
             response && setLoading(false)
             const data = await response.json()
@@ -179,14 +162,10 @@ function AddProject() {
                         ))
                     }
                 </TextField>
-                <TextField disabled={loading && true} placeholder='Title must be 3 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Project Title' />
-                <TextField disabled={loading && true} placeholder='Description must be 3 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Project Description' multiline minRows={10} />
+                <TextField disabled={loading && true} placeholder='Title max should be 100 characters long' error={title && title?.length < 3 && true} onChange={(e) => setTitle(e.target.value)} required label='Enter Project Title' />
+                <TextField disabled={loading && true} placeholder='Description max should be 350 characters long' error={description && description?.length < 3 && true} required onChange={(e) => setDescription(e.target.value)} label='Enter Project Description' multiline minRows={10} />
                 <TextField disabled={loading && true} placeholder='This must be type url.' type='url' onChange={(e) => setRepoUrl(e.target.value)} label='Enter Project Repository URL' required />
                 <TextField disabled={loading && true} placeholder='This must be type url.' type='url' onChange={(e) => setUrl(e.target.value)} label='Enter Project URL' />
-                <SEOInformaton>
-                    <TextField disabled={loading && true} placeholder='Enter Meta Description' error={meta && meta?.length < 3 && true} onChange={(e) => setMeta(e.target.value)} multiline minRows={5} label='Enter Meta Description' />
-                    <TextField disabled={loading && true} placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
-                </SEOInformaton>
                 <ActionBox>
                     <Button disabled={loading && true} type='submit' variant='contained' >{loading ? 'Publishing..' : 'Publish Now'}</Button>
                 </ActionBox>

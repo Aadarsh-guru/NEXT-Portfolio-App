@@ -17,16 +17,10 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    meta: {
-        type: String,
-    },
     url: {
         type: String,
     },
     repoUrl: {
-        type: String,
-    },
-    keywords: {
         type: String,
     },
     author: {

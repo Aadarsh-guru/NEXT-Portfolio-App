@@ -10,9 +10,19 @@ export const POST = async (NextRequest) => {
         if (!success) {
             return NextResponse.json({ message: message, success: false }, { status: 200 })
         }
-        const { title, description, category, meta, keywords, type, author, url, repoUrl, image } = await NextRequest.json()
-        const project = await Project({ image, title, description, category, meta, keywords, type, author, url, repoUrl }).save()
+        const { title, description, category, author, url, repoUrl, image } = await NextRequest.json()
+        const project = await Project({ image, title, description, category, author, url, repoUrl }).save()
         return NextResponse.json({ message: 'Project Created successfully.', success: true, project }, { status: 201 })
+    } catch (error) {
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 })
+    }
+}
+
+export const GET = async (NextRequest) => {
+    await connection();
+    try {
+        const data = await Project.find({}).sort({ createdAt: 'descending' })
+        return NextResponse.json({ message: 'Projects fetched successfully.', success: true, projects: data }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: error.message, success: false }, { status: 500 })
     }
