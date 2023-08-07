@@ -4,7 +4,7 @@ import { sidebarData } from '@/constants/sidebarConfig';
 import './page.css'
 
 export const metadata = {
-    title: "Blog App - Dashboard",
+    title: "Aadarsh Guru - Dashboard",
     description: "This is Dashboard Page",
 };
 

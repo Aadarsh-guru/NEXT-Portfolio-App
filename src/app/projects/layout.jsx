@@ -4,7 +4,7 @@ import './page.css'
 import { projectCategories } from '@/constants/categoriesConfig';
 
 export const metadata = {
-    title: "Blog App - Projects",
+    title: "Aadarsh Guru - Projects",
     description: "This is Projects Page",
 };
 

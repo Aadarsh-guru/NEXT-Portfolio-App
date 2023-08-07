@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const metadata = {
-    title: "Blog App - Register",
+    title: "Aadarsh Guru - Register",
     description: "This is Register Page",
 };
 

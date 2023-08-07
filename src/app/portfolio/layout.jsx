@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const metadata = {
-    title: "Blog App - Portfolio",
+    title: "Aadarsh Guru - Portfolio",
     description: "This is Portfolio Page",
 };
 
