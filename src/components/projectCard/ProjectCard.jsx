@@ -93,11 +93,11 @@ const Article = ({ project }) => {
                 <Grid container>
                     <Grid lg={5} sm={5} xs={12} item>
                         {
-                            imageUrl && <Link href={project?.url ? project?.url : '/projects'} target='_blank' > <ImageComponent height={268} width={268} loading='lazy' src={imageUrl} alt='the related to project pic' /></Link>
+                            imageUrl && <Link href={project?.url ? project?.url : '/projects'} target='_blank' > <ImageComponent height={268} width={268} src={imageUrl} alt='the related to project pic' /></Link>
                         }
                     </Grid>
                     <RightContainer lg={7} md={7} sm={7} xs={12} item>
-                        <Text>{project?.title?.slice(0, 100) + '...'}</Text>
+                        <Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 100) + '...'}</Text></Link>
                         <Autor>
                             <b>Made</b> by {project?.author} / {new Date(project?.createdAt).toDateString()}
                         </Autor>
