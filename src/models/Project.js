@@ -9,17 +9,13 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageUrl: {
-        type: String,
-        required: true,
-    },
-    imageKey: {
+    image: {
         type: String,
         required: true,
     },
     category: {
         type: String,
-        default: 'General'
+        required: true
     },
     meta: {
         type: String,
@@ -33,17 +29,9 @@ const projectSchema = new mongoose.Schema({
     keywords: {
         type: String,
     },
-    type: {
-        type: String,
-        default: 'publish'
-    },
     author: {
         type: String,
         required: true
-    },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
     }
 }, { timestamps: true });
 

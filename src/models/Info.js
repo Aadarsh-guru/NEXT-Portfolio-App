@@ -13,11 +13,7 @@ const infoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageUrl: {
-        type: String,
-        required: true,
-    },
-    imageKey: {
+    image: {
         type: String,
         required: true,
     },
@@ -29,11 +25,7 @@ const infoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    resumeUrl: {
-        type: String,
-        required: true,
-    },
-    resumeKey: {
+    resume: {
         type: String,
         required: true,
     },

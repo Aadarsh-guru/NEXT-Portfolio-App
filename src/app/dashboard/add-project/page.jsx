@@ -86,17 +86,8 @@ const ActionBox = styled(Box)(({ theme }) => ({
     margin: 15,
     justifyContent: 'space-between',
     '&>button': {
-        width: '30%',
+        width: '100%',
         padding: 10
-    },
-    [theme.breakpoints.down('md')]: {
-        flexDirection: 'column-reverse',
-        '&>button': {
-            width: '100%',
-            padding: 10
-        },
-        gap: 14,
-        margin: 10
     }
 }))
 
@@ -125,7 +116,6 @@ function AddProject() {
     const [category, setCategory] = useState('')
     const [meta, setMeta] = useState('')
     const [keywords, setKeywords] = useState('')
-    const [type, setType] = useState('publish')
     const [url, setUrl] = useState('')
     const [repoUrl, setRepoUrl] = useState('')
     const [loading, setLoading] = useState(false)
@@ -140,13 +130,13 @@ function AddProject() {
                 return toast.error('Image files only accepted.')
             }
             setLoading(true)
-            const { imageUrl, success, imageKey } = await uploadToS3(image, 'project-images')
+            const { success, key } = await uploadToS3(image, 'project-images')
             if (!success) {
                 return toast.error('something went wrong.')
             }
             const response = await fetch('/api/project', {
                 method: 'POST',
-                body: JSON.stringify({ imageKey, imageUrl, title, description, category, meta, keywords, type, url, repoUrl, author: user?.name })
+                body: JSON.stringify({ image: key, title, description, category, meta, keywords, url, repoUrl, author: user?.name })
             })
             response && setLoading(false)
             const data = await response.json()
@@ -198,9 +188,7 @@ function AddProject() {
                     <TextField disabled={loading && true} placeholder='Enter Related Keywords Seprated by (",")' error={keywords && keywords?.length < 1 && true} onChange={(e) => setKeywords(e.target.value)} multiline minRows={5} label='Provide Related Keywords' />
                 </SEOInformaton>
                 <ActionBox>
-                    <Button disabled={loading && true} type='submit' onClick={() => setType('bin')} sx={{ color: 'red', borderColor: 'red' }} variant='outlined' >{(loading && type === 'bin') ? 'Moving to bin.. ' : 'Move To Bin'}</Button>
-                    <Button disabled={loading && true} type='submit' onClick={() => setType('draft')} sx={{ color: 'green', borderColor: 'green' }} variant='outlined' >{(loading && type === 'draft') ? 'saving draft..' : "Save Draft"}</Button>
-                    <Button disabled={loading && true} type='submit' onClick={() => setType('publish')} variant='contained' >{(loading && type === 'publish') ? 'Publishing..' : 'Publish Now'}</Button>
+                    <Button disabled={loading && true} type='submit' variant='contained' >{loading ? 'Publishing..' : 'Publish Now'}</Button>
                 </ActionBox>
             </Form>
         </Container>

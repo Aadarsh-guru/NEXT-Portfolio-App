@@ -19,22 +19,22 @@ export const POST = async (NextRequest) => {
         if (!success) {
             return NextResponse.json({ message: message, success: false }, { status: 200 })
         }
-        const { imageUrl, imageKey, heading, subHeading, description, email, phone, resumeUrl, resumeKey } = await NextRequest.json()
+        const { image, heading, subHeading, description, email, phone, resume } = await NextRequest.json()
         const data = await Info.findOne({})
         if (data?._id) {
             await s3Client.send(new DeleteObjectCommand({
                 Bucket: process.env.BUCKET_NAME,
-                Key: data?.imageKey
+                Key: data?.image
             }))
             await s3Client.send(new DeleteObjectCommand({
                 Bucket: process.env.BUCKET_NAME,
-                Key: data?.resumeKey
+                Key: data?.resume
             }))
-            const info = await Info.findByIdAndUpdate(data?._id, { imageUrl, imageKey, heading, subHeading, description, email, phone, resumeUrl, resumeKey, userId })
+            const info = await Info.findByIdAndUpdate(data?._id, { image, heading, subHeading, description, email, phone, resume, userId })
             return NextResponse.json({ message: 'Info Updated successfully.', success: true, info }, { status: 201 })
         } else {
             await Info.deleteOne({})
-            const info = await Info({ imageUrl, imageKey, heading, subHeading, description, email, phone, resumeUrl, resumeKey, userId }).save()
+            const info = await Info({ image, heading, subHeading, description, email, phone, resume, userId }).save()
             return NextResponse.json({ message: 'Info Updated successfully.', success: true, info }, { status: 201 })
         }
     } catch (error) {

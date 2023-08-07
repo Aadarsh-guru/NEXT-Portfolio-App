@@ -39,7 +39,7 @@ const Navbar = () => {
       <div className={styles.links}>
         <DarkModeToggle />
         {links.map((link) => (
-          <Link style={path === link?.url ? { color: '#53c28b', transition: 'all 0.5s ease' } : null} key={link.id} href={link.url} className={styles.link}>
+          <Link target={link?.title === 'Blogs' && '_blank'} style={path === link?.url ? { color: '#53c28b', transition: 'all 0.5s ease' } : null} key={link.id} href={link.url} className={styles.link}>
             {link.title}
           </Link>
         ))}

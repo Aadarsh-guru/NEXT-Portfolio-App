@@ -17,7 +17,7 @@ export const links = [
     {
         id: 4,
         title: "Blogs",
-        url: "/blogs",
+        url: "https://aadarshguru.hashnode.dev/",
     },
     {
         id: 6,

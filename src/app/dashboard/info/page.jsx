@@ -128,8 +128,8 @@ function AddProject() {
                 return toast.error('Doc files only accepted.')
             }
             setLoading(true)
-            const { imageUrl, success, imageKey } = await uploadToS3(image, 'profile-images')
-            const resumeData = await uploadToS3(resume, 'info-resume')
+            const { success, key } = await uploadToS3(image, 'portfolio')
+            const resumeData = await uploadToS3(resume, 'portfolio')
             if (!success) {
                 return toast.error('something went wrong.')
             }
@@ -138,7 +138,7 @@ function AddProject() {
             }
             const response = await fetch('/api/info', {
                 method: 'POST',
-                body: JSON.stringify({ imageUrl, imageKey, heading, subHeading, description, email, phone, resumeUrl: resumeData?.imageUrl, resumeKey: resumeData?.imageKey })
+                body: JSON.stringify({ image: key, heading, subHeading, description, email, phone, resume: resumeData?.key })
             })
             response && setLoading(false)
             const data = await response.json()

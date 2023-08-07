@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Loader from '@/components/loader/Loader';
+import getPresignedUrl from '@/helpers/getPresignedUrl';
 
 const Container = styled(Box)({
     display: 'flex',
@@ -117,6 +118,8 @@ const Portfolio = () => {
 
     const [infoData, setInfoData] = useState({})
     const [fetching, setFetching] = useState(false)
+    const [imageUrl, setImageUrl] = useState('')
+    const [resumeUrl, setResumeUrl] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -136,6 +139,24 @@ const Portfolio = () => {
         }
         fetchData()
     }, [])
+
+    useEffect(() => {
+        const getUrls = async () => {
+            try {
+                const resume = await getPresignedUrl(infoData?.resume)
+                if (resume?.success) {
+                    setResumeUrl(resume?.url)
+                }
+                const image = await getPresignedUrl(infoData?.image)
+                if (image?.success) {
+                    setImageUrl(image?.url)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getUrls()
+    }, [infoData])
 
 
     return (
@@ -184,7 +205,7 @@ const Portfolio = () => {
                                     }} variant='contained' >
                                         See My Projects
                                     </Button></Link>
-                                    <a href={infoData?.resumeUrl ? infoData?.resumeUrl : '/'} target='_blank' >
+                                    <a href={resumeUrl ? resumeUrl : '/'} target='_blank' >
                                         <Button
                                             style={{
                                                 color: '#53c28b',
@@ -196,7 +217,7 @@ const Portfolio = () => {
                             </Section>
                             <Section>
                                 {
-                                    infoData?.imageUrl && <MyImage width={500} height={500} src={infoData?.imageUrl} alt="portfolio-image" />
+                                    imageUrl && <MyImage width={500} height={500} src={imageUrl} alt="portfolio-image" />
                                 }
                             </Section>
                         </>

@@ -2,7 +2,7 @@ import imageCompression from "browser-image-compression"
 
 const uploadToS3 = async (file, ref) => {
     try {
-        const key = `next-blog-app/${ref}/${Date.now()}.${file?.name}`
+        const key = `next-portfolio-app/${ref}/${Date.now()}.${file?.name}`
         const uploadResponse = await fetch('/api/upload/', {
             method: 'POST',
             body: JSON.stringify({ key: key })
@@ -19,7 +19,7 @@ const uploadToS3 = async (file, ref) => {
                     }
                 })
                 if (uploaded?.status === 200) {
-                    return { imageUrl: uploadData?.getUrl, success: true, imageKey: key }
+                    return { success: true, key: key }
                 }
             }
         } else {
@@ -33,7 +33,7 @@ const uploadToS3 = async (file, ref) => {
                     }
                 })
                 if (uploaded?.status === 200) {
-                    return { imageUrl: uploadData?.getUrl, success: true, imageKey: key }
+                    return { success: true, key: key }
                 }
             }
         }
