@@ -134,11 +134,11 @@ const Article = ({ project }) => {
                         }
                     </Grid>
                     <RightContainer lg={7} md={7} sm={7} xs={12} item>
-                        <Title><Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 100) + '...'}</Text></Link><DeleteButton onClick={() => setOpen(!open)} /></Title>
+                        <Title><Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 150) + '...'}</Text></Link><DeleteButton onClick={() => setOpen(!open)} /></Title>
                         <Autor>
                             <b>Made</b> by {project?.author} / {new Date(project?.createdAt).toDateString()}
                         </Autor>
-                        <Description>{project?.description?.slice(0, 350) + '...'}</Description>
+                        <Description>{project?.description?.slice(0, 450) + '...'}</Description>
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'space-between'
