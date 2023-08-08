@@ -7,6 +7,7 @@ import React, { memo, useEffect, useState } from 'react'
 import AlertDialog from '../confirmBox/ConfirmDialog'
 import { toast } from 'react-hot-toast'
 import { useData } from '@/context/DataProvider'
+import { usePathname } from 'next/navigation'
 
 const ImageComponent = styled(Image)(({ theme }) => ({
     height: '268px',
@@ -93,6 +94,7 @@ const DeleteButton = styled(Clear)({
 const Article = ({ project }) => {
 
     const { user } = useData()
+    const path = usePathname()
     const [imageUrl, setImageUrl] = useState('')
     const [open, setOpen] = useState(false)
 
@@ -137,7 +139,7 @@ const Article = ({ project }) => {
                     </Grid>
                     <RightContainer lg={7} md={7} sm={7} xs={12} item>
                         {
-                            user?.email ?
+                            (user?.email && path?.includes('/dashboard/projects')) ?
                                 (
                                     <Title><Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 150) + '...'}</Text></Link><DeleteButton onClick={() => setOpen(!open)} /></Title>
                                 )
