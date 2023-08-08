@@ -95,7 +95,7 @@ const Article = ({ message }) => {
                 setOpen={setOpen}
                 title={'Are You Sure ?'}
                 handleDelete={handleDelete}
-                content={"Note - You want to delete this messahe. if you delete this you'll not be able restore this message again."} />
+                content={"Note - You want to delete this message. if you delete this you'll not be able restore this message again."} />
         </Component>
     )
 }

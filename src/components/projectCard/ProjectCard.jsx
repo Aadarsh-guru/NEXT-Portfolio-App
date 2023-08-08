@@ -1,8 +1,11 @@
 import getPresignedUrl from '@/helpers/getPresignedUrl'
+import { Clear } from '@mui/icons-material'
 import { Box, Card, CardContent, Grid, Typography, styled } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { memo, useEffect, useState } from 'react'
+import AlertDialog from '../confirmBox/ConfirmDialog'
+import { toast } from 'react-hot-toast'
 
 const ImageComponent = styled(Image)(({ theme }) => ({
     height: '268px',
@@ -69,9 +72,43 @@ const Description = styled(Typography)(({ thrme }) => ({
     fontWeight: 300
 }))
 
+const Title = styled(Box)({
+    display: 'flex',
+    justifyContent: 'space-between'
+})
+
+const DeleteButton = styled(Clear)({
+    color: '#f2f2f2',
+    cursor: 'pointer',
+    ':hover': {
+        color: 'red'
+    },
+    ':active': {
+        color: '#44444d'
+    }
+})
+
+
 const Article = ({ project }) => {
 
     const [imageUrl, setImageUrl] = useState('')
+    const [open, setOpen] = useState(false)
+
+    const handleDelete = async () => {
+        try {
+            const repponse = await fetch(`/api/project/delete/${project?._id}`, {
+                method: 'DELETE'
+            })
+            const data = await repponse.json()
+            if (data?.success) {
+                toast.success(data?.message)
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('something went wrong.')
+        }
+    }
+
 
     useEffect(() => {
         const getUrls = async () => {
@@ -97,7 +134,7 @@ const Article = ({ project }) => {
                         }
                     </Grid>
                     <RightContainer lg={7} md={7} sm={7} xs={12} item>
-                        <Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 100) + '...'}</Text></Link>
+                        <Title><Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 100) + '...'}</Text></Link><DeleteButton onClick={() => setOpen(!open)} /></Title>
                         <Autor>
                             <b>Made</b> by {project?.author} / {new Date(project?.createdAt).toDateString()}
                         </Autor>
@@ -116,6 +153,12 @@ const Article = ({ project }) => {
                     </RightContainer>
                 </Grid>
             </Container>
+            <AlertDialog
+                open={open}
+                setOpen={setOpen}
+                title={'Are You Sure ?'}
+                handleDelete={handleDelete}
+                content={"Note - You want to delete this project. if you delete this you'll not be able restore this project again."} />
         </Component>
     )
 }
