@@ -1,5 +1,5 @@
 import getPresignedUrl from '@/helpers/getPresignedUrl'
-import { Clear } from '@mui/icons-material'
+import { Clear, ExpandLess } from '@mui/icons-material'
 import { Box, Card, CardContent, Grid, Typography, styled } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -90,6 +90,16 @@ const DeleteButton = styled(Clear)({
     }
 })
 
+const TopButton = styled(ExpandLess)({
+    color: '#f2f2f2',
+    cursor: 'pointer',
+    ':hover': {
+        color: 'red'
+    },
+    ':active': {
+        color: '#44444d'
+    }
+})
 
 const Article = ({ project }) => {
 
@@ -102,6 +112,22 @@ const Article = ({ project }) => {
         try {
             const repponse = await fetch(`/api/project/delete/${project?._id}`, {
                 method: 'DELETE'
+            })
+            const data = await repponse.json()
+            if (data?.success) {
+                toast.success(data?.message)
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('something went wrong.')
+        }
+    }
+
+    const handleUpdate = async (project) => {
+        try {
+            const repponse = await fetch(`/api/project`, {
+                method: 'PUT',
+                body: JSON.stringify({ id: project?._id, title: project?.title })
             })
             const data = await repponse.json()
             if (data?.success) {
@@ -141,7 +167,14 @@ const Article = ({ project }) => {
                         {
                             (user?.email && path?.includes('/dashboard/projects')) ?
                                 (
-                                    <Title><Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 150) + '...'}</Text></Link><DeleteButton onClick={() => setOpen(!open)} /></Title>
+                                    <Title><Link href={project?.repoUrl && project?.repoUrl} target='_blank' ><Text>{project?.title?.slice(0, 150) + '...'}</Text></Link>
+                                        <Box sx={{
+                                            display: 'flex',
+                                            gap: 2,
+                                        }}>
+                                            <TopButton onClick={() => handleUpdate(project)} />
+                                            <DeleteButton onClick={() => setOpen(!open)} />
+                                        </Box></Title>
                                 )
                                 :
                                 (
