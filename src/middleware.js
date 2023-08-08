@@ -7,6 +7,8 @@ export function middleware(NextRequest) {
         return NextResponse.redirect(new URL('/login', NextRequest?.url))
     } else if ((path === '/login' || path === '/register') && token) {
         return NextResponse.redirect(new URL('/', NextRequest?.url))
+    } else if (path === '/register') {
+        return NextResponse.redirect(new URL('/login', NextRequest?.url))
     }
 
 }

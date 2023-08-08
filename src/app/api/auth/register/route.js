@@ -7,9 +7,9 @@ export const POST = async (NextRequest) => {
     await connection();
     try {
         const { name, email, password } = await NextRequest.json()
-        const user = await User.findOne({ email: email })
-        if (user) {
-            return NextResponse.json({ message: 'user already exist.', success: false }, { status: 200 })
+        const admin = await User.findOne({})
+        if (admin) {
+            return NextResponse.json({ message: 'Admin already registered.', success: false }, { status: 200 })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const data = await User({ name, email, password: hashedPassword }).save();
