@@ -10,6 +10,7 @@ const DataProvider = ({ children }) => {
     const [user, setUser] = useState({ name: '', email: '', createdAt: '' })
     const [theme, setTheme] = useState('dark')
 
+
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('user'))
         if (userData) {
