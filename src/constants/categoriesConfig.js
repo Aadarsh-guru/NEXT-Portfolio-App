@@ -24,10 +24,16 @@ export const projectCategories = [
     },
     {
         id: 4,
+        title: 'REACT NATIVE',
+        slug: 'react-native',
+        url: '/projects/react-native',
+        icon: Feed
+    },
+    {
+        id: 5,
         title: 'REACT JS',
         slug: 'react-js',
         url: '/projects/react-js',
         icon: Feed
     },
-
 ]
